@@ -1,0 +1,19 @@
+hset key field value
+hget key field
+hdel key field
+hgetall key  // 会返回所有的键和值
+hexists key field  //判断是否存在该字段0
+
+hkeys key 
+hvals key
+
+hincrby key field increment
+hincrbyfloat key field increment
+
+
+
+hash可以存放的键值对为 2^32 - 1
+hash虽然十分贴切对象的数据存储模式， 但设计初衷并不是为了大量存储对象而设计的， 不可将hash作为存放对象的数据类型
+分析：
+	a. 存放大量数据时， 可能更容器的产生hash问题， 比如 我要拿a 但却给我个b
+	b. 当 field 字段 变多时， 遍历会很慢， 造成服务器瓶颈

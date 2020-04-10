@@ -1,0 +1,19 @@
+keys * 查询所有的 key
+type keyname  查询keyname对应的数据类型
+del key  删除key 可使用表达式删除
+exists key 
+
+时效性控制
+expire key seconds
+pexpire key milliseconds
+
+(注意 -1 是永久  -2是不存在/已过期)
+ttl key   获取剩余时间
+pttl key 
+
+persist key   转化为永久
+
+rename key newKey   
+renamex key newKey  更改名字时， 进行判断是否存在原来的键
+
+sort key desc/asc排序

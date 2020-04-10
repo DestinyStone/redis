@@ -1,0 +1,14 @@
+set key value
+get key
+del key
+
+
+incr key
+incrby key increment
+incrbyfloat key increment
+
+
+decr key
+decrby key increment
+
+注意 没有 decrbyfloat

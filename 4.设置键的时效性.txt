@@ -1,0 +1,2 @@
+setex key seconds value   
+psetex key milliseconds value

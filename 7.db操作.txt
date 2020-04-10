@@ -1,0 +1,8 @@
+redis 默认存在16个数据库 ， 0-15 每个数据库之间相互独立， 默认存在于 0 号数据库
+
+select index  更换数据库 
+move key db 数据移动
+
+dbsize   当前数据库多少个key
+flushdb  删除当前数据库 key
+flushall   删除所有数据库 key

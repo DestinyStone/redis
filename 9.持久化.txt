@@ -1,0 +1,67 @@
+redis持久化策略
+	RDB(默认， redis database)：快照， 将数据直接保存于硬盘中
+	AOF(append only file):  日志， 将数据的操作保存于硬盘中
+
+RDB优缺点：
+	速度快， 无法做到实时持久化， 可能会较大的可能性丢失数据
+AOF优缺点：
+
+-----------------------------------------------------------------------------------------------
+一， RDB的使用
+命令
+	save(单线程中执行， 可能会造成服务器堵塞)
+	bgsave(另开一个线程执行， 推荐)
+	保存位置： */redis/data/dump.rdb
+
+save 相关指令设置     使用： 将一下文件写入  redis.conf   启动reids时  reids-server  redis.conf
+dbfilename dump.rdb
+	说明： 设置本地数据库存储文件名
+	经验： 通常设置为 dump-端口号.rdb
+
+dir
+	说明： .rdb 文件的存储路径
+
+rdbcompression yes
+	说明: 设置存储到本地数据库时， 是否压缩数据， 默认为yes， 采用LZF压缩
+	经验： 默认开启
+
+rdbchecksum yes
+	说明： 设置是否经行RDb文件格式检验
+	经验：默认开启状态， 诺设置为no， 存储数据有一定的损害风险
+
+
+配置文件中的 save
+save second changes
+	在 second 时间内发生changes变化立即进行持久化
+	second：监控时间
+	changes： key的变化量
+	注意： 在second时间内如果发生了持久化， 此时并不会重新统计
+
+-----------------------------------------------------------------------------------------------
+
+二， AOF的使用
+策略
+	always 每次(零误差， 但性能较低)
+	everysec 每秒(较为推荐)
+	no 系统控制
+配置
+	appendonly yes|no  (默认为no 不开启)
+	appendfsync always|everyesc|no
+	appendfilename "appendonly.aof"
+AOF 重写机制
+	对同一数据的多条命令执行结果转化，从而减少命令条数
+	规则：
+		超时数据不再写入
+		无效指令不写入
+		多条命令合成为一条   如  lpush list1 a, lpush list1 b, 转化为  lpush list1 a b
+手动重写
+	bgrewriteaof
+自动重写
+	auto-aof-rewrite-min-size  size     (默认 64mb 当内存， 文件超过64mb时就开始执行重写)
+	auto-aof-rewirte-percentage percentage
+ 
+
+
+
+
+

@@ -1,0 +1,19 @@
+//整合部分在 springboot整合篇中
+
+@Autowired
+private StringRedisTemplate redisTemplate;
+
+
+使用。
+对象本身可以点出来的方法， 可理解为redis中直接对key操作的方法
+如 
+.persits()
+.expire()
+
+操作String
+opsForValue()
+
+操作 List
+opsForList()
+
+其他 类似
