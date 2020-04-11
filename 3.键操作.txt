@@ -14,6 +14,6 @@ pttl key
 persist key   转化为永久
 
 rename key newKey   
-renamex key newKey  更改名字时， 进行判断是否存在原来的键
+renamenx key newKey  更改名字时， 进行判断是否存在原来的键
 
 sort key desc/asc排序
