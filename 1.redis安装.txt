@@ -1,6 +1,9 @@
 docker pull redis:latest
 
-下载redis.conf 放在 /usr/local/redis/redis.conf: 下
+下载redis.conf 放在 /usr/local/redis/redis.conf: 下并
+a. 禁用 bind 127.0.0.1       (取消掉本地访问限制)
+b. protected-mode no   (默认yes 设置为no ,  关闭保护模式)
+
 
 docker run -d -p 6379:6379 -v /usr/local/redis/redis.conf:/etc/redis/redis.conf -v /usr/local/redis/data:/data --name testredis redis redis-server /etc/redis/redis.conf
 

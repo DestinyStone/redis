@@ -1,0 +1,11 @@
+<dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.46</version>
+</dependency>
+
+使用对象  JSONObject
+	
+方法 
+	String toJSONString(Object ojb)  将对象转化为JSON字符串
+	<T> T parseObject(String, Class<T>)  将JSON字符串转化为对象
