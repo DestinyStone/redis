@@ -17,3 +17,7 @@ opsForValue()
 opsForList()
 
 其他 类似
+
+特别方法
+a.检查key是否存在
+	hasKey()     //并没有 exists()
