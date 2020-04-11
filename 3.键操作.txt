@@ -7,6 +7,9 @@ exists key
 expire key seconds
 pexpire key milliseconds
 
+setex key seconds value   
+psetex key milliseconds value
+
 (注意 -1 是永久  -2是不存在/已过期)
 ttl key   获取剩余时间
 pttl key 
