@@ -49,7 +49,10 @@ save second changes
 	no 系统控制
 配置
 	appendonly yes|no  (默认为no 不开启)
-	appendfsync always|everyesc|no
+	appendfsync 
+		always  //每一条命令
+		everyesc   //每一秒
+		no    //由系统控制
 	appendfilename "appendonly.aof"
 AOF 重写机制
 	对同一数据的多条命令执行结果转化，从而减少命令条数
