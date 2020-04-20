@@ -1,4 +1,5 @@
 hset key field value
+hsetnx key field value  不存在值就加， 存在就不加
 hget key field
 hdel key field
 hgetall key  // 会返回所有的键和值
@@ -17,3 +18,7 @@ hash虽然十分贴切对象的数据存储模式， 但设计初衷并不是为
 分析：
 	a. 存放大量数据时， 可能更容器的产生hash问题， 比如 我要拿a 但却给我个b
 	b. 当 field 字段 变多时， 遍历会很慢， 造成服务器瓶颈
+	c. 存在2种编码 hashtable  ziplist， 当field过多 会采用ziplist减少内存消耗
+
+一般使用场景
+	
