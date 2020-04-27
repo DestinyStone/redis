@@ -1,0 +1,23 @@
+基本介绍， 自带排序的set，
+
+zadd key score1 value1 添加字段
+
+zrange key start stop [withscores]  获取范围数据  [withscores]  显示分数
+zrangebyscore key min max [withscores] [limit]     查询分数范围
+zrevrange key start stop             降序获取
+zrevrangebyscore key max min [widthscores] [limit]
+
+
+zrem key value  删除某个字段
+zremrangebyrank key start stop
+zremrangebyscore key min max
+
+zcard key 
+zcount key min max
+
+zinterstore ..
+zunionstore ...
+
+
+应用场景，
+本身需要排序的部分，如 排行版

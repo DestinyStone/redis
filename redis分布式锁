@@ -1,0 +1,57 @@
+观看如下代码
+---------------------------------------------------------------------------------
+String key = "tableName:keyName:" +  id;
+String objectValue = stringRedisTemplate.opsForValue().get(key);
+
+//如果不存在objectValue则代表redis没有有数据, 需要到数据库中找
+if (StringUtils.isBlank(objectValue)) {
+	//模拟数据库访问， 访问量加一
+	CountDB.i++;
+	System.out.println("访问了数据库, 并将数据库信息写入redis");
+} else {
+	System.out.println("从redis中获取缓存并返回");
+}
+---------------------------------------------------------------------------------
+以上： 加入有1万用户刚好调用该方法， 此时发生缓存击穿， 那么访问都会打入数据库中
+
+解决方案： 增加nx锁
+---------------------------------------------------------------------------------
+//如果不存在objectValue则代表redis没有有数据, 需要到数据库中找
+if (StringUtils.isBlank(objectValue)) {
+	String keyLock = "tableName:keyName:Lock:" + id;
+	if (stringRedisTemplate.opsForValue().setIfAbsent(keyLock, "lock")) {
+		//模拟数据库访问， 访问量加一
+		CountDB.i++;
+		System.out.println("访问了数据库, 并将数据库信息写入redis");
+		stringRedisTemplate.delete(keyLock);  //访问成功删除锁
+	}else {
+		//用户重新访问该请求
+		Thread.sleep(300);
+		return countDB(id);
+	}
+} else {
+	System.out.println("从redis中获取缓存并返回");
+} 
+---------------------------------------------------------------------------------
+以上： setIfAbsent只有在key不存在时才返回key，解决了多人访问问题， 但是又产生了性的问题
+问题1： 如果得到锁的用户执行到一半退出了或服务器宕机了, 锁没有删除, 下一个用户无法得到锁
+解决： .setIfAbsent(keyLock, "lock", 10, TimeUnit.SECONDS)  // 该方法在为key设置了10s的存活时间
+
+以上：又产生了新问题, 
+问题： 时间设置多少好？当用户执行到一半如果lock过期了或导致线程2获得锁, 从而导致线程1删除了线程2的锁
+解决： 开辟一个子线程去判断key的存活时间, 当要过期时就续期
+	（这里不用担心当用户执行一般退出导致锁永久生效问题， 因为用户线程倒闭， 子线程也会倒闭）
+	
+--------------------------------------------------------------------------------------
+框架解决 Redission
+上锁    RLock lock = redissonClient.getLock(keyLock);  //相当于 setIfAbsent(keyLock, "lock")
+设置过期时间   lock.lock(30, TimeUnit.SECONDS);  //这里会开辟一个线程, 当锁过期会给锁续期
+解锁   lock.unlock();
+
+
+
+
+
+
+
+

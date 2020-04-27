@@ -1,0 +1,19 @@
+底层使用双向链表实现
+lpush key value1 [value2]  左边添加数据
+rpush key value1 [value2]右变添加数据
+
+lrange key start stop   获取从start 到stop 的数据   两边都是获取   0开始    0 -1 代表所有
+lindex key index    获取某个数据  从零开始
+llen key 获取长度
+
+lpop  左边弹出数据
+rpop 右变弹出数据
+
+扩展操作
+blpop key1 [key2] 30     30秒类一直执行获取数据，直到获取到数据
+rlpop  key1 [key2] 30
+lrem key count value   移出count个匹配的到value数值
+
+一般使用场景
+有顺序性，多个的数据
+分布式锁

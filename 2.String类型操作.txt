@@ -1,7 +1,7 @@
 set key value
 get key
 del key
-
+setnx key value
 
 incr key
 incrby key increment

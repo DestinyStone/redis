@@ -1,0 +1,24 @@
+sadd key value1 [value2]   添加数据
+smenbers key  输出数据
+srem key value1 [value2]  删除数据
+scard key  获取数据总量
+srandmember key [count]  获取随机个数据， 不改变数据本身
+spop key [count]  获取随机个数据 并删除
+sismember key value  判断是否包含该数据
+
+
+sinter key1 key2  求两个集合的交集
+sunion key1 key2 求两个集合的并集
+sdiff key1 key2 求两个集合的差集   这里得到的数据是 key1 -key2
+
+sinterstore newkey key1 key2  求两个集合的交集,并存放到newkey中
+sunionstore newkey  key1 key2 求两个集合的并集,并存放到newkey中
+sdiffstore newkey  key1 key2 求两个集合的差集,并存放到newkey中
+
+smove key1 key2 value  将value从 key1 移动到key2
+
+使用场景
+a.存储大量数据, 但在查询方面具有随机性，不可重复性
+入  随机消息推送， 热点新闻等
+b. 匹配共同特性， 如共同好友关注， 外卖的共同点餐
+c. 网站日访问量，  记录访问主机的主机ip， 返回set的大小
