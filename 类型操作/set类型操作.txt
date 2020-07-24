@@ -1,10 +1,10 @@
 sadd key value1 [value2]   添加数据
-smenbers key  输出数据
+smembers key  输出数据
 srem key value1 [value2]  删除数据
 scard key  获取数据总量
-srandmember key [count]  获取随机个数据， 不改变数据本身
+srandmember key [count]  获取随机个数据， 不改变数据本身   //
 spop key [count]  获取随机个数据 并删除
-sismember key value  判断是否包含该数据
+sismember key value  判断是否包含该数据     //
 
 
 sinter key1 key2  求两个集合的交集
