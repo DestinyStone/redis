@@ -1,0 +1,4 @@
+.getSemaphore("key") // 监控key  返回 RSemaphore
+boolean b = RSemaphore.tryAcquire();  //抢库存
+
+true 成功  false 失败

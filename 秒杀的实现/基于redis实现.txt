@@ -1,0 +1,12 @@
+流程
+	监控key
+		watch key  // 如果存在其他事务导致key发生了变化则 事务不执行
+
+	开启事务
+		multi
+
+	抢购key  
+		incrby key -1
+
+	执行事务
+		exec

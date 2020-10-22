@@ -1,0 +1,41 @@
+1. slave与master建立连接
+	slave： 
+		命令方式
+			slaveof master-ip  master-port    // master 接收到指令会发出响应
+		配置文件方式(将命令写入redis.conf  启动  redis-cli redis.conf)
+			slaveof master-ip  master-port  
+		auth password
+
+2. 断开主从
+	slaveof no one
+
+3. 建立密码连接
+	a. master 设置密码
+		命令方式
+			config set requirepass 密码
+			config get requirepass
+		配置文件方式
+			requirepass 密码
+	
+	b. slave 发送密码
+		命令方式
+			auth 密码
+		配置文件方式
+			masterauth password
+
+4. 数据同步
+	过程， slave发送命令， master发送RDB到slave， slave使用RDB，
+
+5. 命令传播
+	id
+	复制缓冲区： 接收master的指定
+	
+
+
+
+查看连接信息
+info
+设置redis内存占用
+repl-backlog-size 1mb
+关闭写
+slave-serve-stale-data yes|no

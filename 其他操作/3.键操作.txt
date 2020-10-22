@@ -14,7 +14,7 @@ psetex key milliseconds value
 ttl key   获取剩余时间
 pttl key 
 
-persist key   转化为永久
+persist key   转化为永久  //
 
 rename key newKey   
 renamenx key newKey  更改名字时， 进行判断是否存在原来的键
